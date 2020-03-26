@@ -4,7 +4,6 @@ import numpy as np
 import pybullet
 from robot_free_locomotors import HopperFree, Walker2DFree, HalfCheetahFree, AntFree, HumanoidFree #TODO: , HumanoidFlagrun, HumanoidFlagrunHarder
 
-
 class WalkerFreeBaseBulletEnv(MJCFBaseBulletEnv):
 
   def __init__(self, robot, render=False):
@@ -130,68 +129,68 @@ class WalkerFreeBaseBulletEnv(MJCFBaseBulletEnv):
     self.camera.move_and_look_at(self.camera_x, y - 2.0, 1.4, x, y, 1.0)
 
 
-class HopperFreeBulletEnv(WalkerBaseBulletEnv):
+class HopperFreeBulletEnv(WalkerFreeBaseBulletEnv):
 
   def __init__(self, render=False):
-    self.robot = Hopper()
-    WalkerBaseBulletEnv.__init__(self, self.robot, render)
+    self.robot = HopperFree()
+    WalkerFreeBaseBulletEnv.__init__(self, self.robot, render)
 
 
-class Walker2DFreeBulletEnv(WalkerBaseBulletEnv):
-
-  def __init__(self, render=False):
-    self.robot = Walker2D()
-    WalkerBaseBulletEnv.__init__(self, self.robot, render)
-
-
-class HalfCheetahFreeBulletEnv(WalkerBaseBulletEnv):
+class Walker2DFreeBulletEnv(WalkerFreeBaseBulletEnv):
 
   def __init__(self, render=False):
-    self.robot = HalfCheetah()
-    WalkerBaseBulletEnv.__init__(self, self.robot, render)
+    self.robot = Walker2DFree()
+    WalkerFreeBaseBulletEnv.__init__(self, self.robot, render)
+
+
+class HalfCheetahFreeBulletEnv(WalkerFreeBaseBulletEnv):
+
+  def __init__(self, render=False):
+    self.robot = HalfCheetahFree()
+    WalkerFreeBaseBulletEnv.__init__(self, self.robot, render)
 
   def _isDone(self):
     return False
 
 
-class AntFreeBulletEnv(WalkerBaseBulletEnv):
+class AntFreeBulletEnv(WalkerFreeBaseBulletEnv):
 
   def __init__(self, render=False):
-    self.robot = Ant()
-    WalkerBaseBulletEnv.__init__(self, self.robot, render)
+    self.robot = AntFree()
+    WalkerFreeBaseBulletEnv.__init__(self, self.robot, render)
 
 
-class HumanoidFreeBulletEnv(WalkerBaseBulletEnv):
+class HumanoidFreeBulletEnv(WalkerFreeBaseBulletEnv):
 
-  def __init__(self, robot=Humanoid(), render=False):
+  def __init__(self, robot=HumanoidFree(), render=False):
     self.robot = robot
-    WalkerBaseBulletEnv.__init__(self, self.robot, render)
+    WalkerFreeBaseBulletEnv.__init__(self, self.robot, render)
     self.electricity_cost = 4.25 * WalkerBaseBulletEnv.electricity_cost
     self.stall_torque_cost = 4.25 * WalkerBaseBulletEnv.stall_torque_cost
 
 # TODO: Do the following envs make any sense in free mode ?
-class HumanoidFlagrunBulletEnv(HumanoidBulletEnv):
-  random_yaw = True
-
-  def __init__(self, render=False):
-    self.robot = HumanoidFlagrun()
-    HumanoidBulletEnv.__init__(self, self.robot, render)
-
-  def create_single_player_scene(self, bullet_client):
-    s = HumanoidBulletEnv.create_single_player_scene(self, bullet_client)
-    s.zero_at_running_strip_start_line = False
-    return s
-
-
-class HumanoidFlagrunHarderBulletEnv(HumanoidBulletEnv):
-  random_lean = True  # can fall on start
-
-  def __init__(self, render=False):
-    self.robot = HumanoidFlagrunHarder()
-    self.electricity_cost /= 4  # don't care that much about electricity, just stand up!
-    HumanoidBulletEnv.__init__(self, self.robot, render)
-
-  def create_single_player_scene(self, bullet_client):
-    s = HumanoidBulletEnv.create_single_player_scene(self, bullet_client)
-    s.zero_at_running_strip_start_line = False
-    return s
+# class HumanoidFlagrunBulletEnv(HumanoidBulletEnv):
+#   random_yaw = True
+#
+#   def __init__(self, render=False):
+#     self.robot = HumanoidFlagrun()
+#     HumanoidBulletEnv.__init__(self, self.robot, render)
+#
+#   def create_single_player_scene(self, bullet_client):
+#     s = HumanoidBulletEnv.create_single_player_scene(self, bullet_client)
+#     s.zero_at_running_strip_start_line = False
+#     return s
+#
+#
+# class HumanoidFlagrunHarderBulletEnv(HumanoidBulletEnv):
+#   random_lean = True  # can fall on start
+#
+#   def __init__(self, render=False):
+#     self.robot = HumanoidFlagrunHarder()
+#     self.electricity_cost /= 4  # don't care that much about electricity, just stand up!
+#     HumanoidBulletEnv.__init__(self, self.robot, render)
+#
+#   def create_single_player_scene(self, bullet_client):
+#     s = HumanoidBulletEnv.create_single_player_scene(self, bullet_client)
+#     s.zero_at_running_strip_start_line = False
+#     return s

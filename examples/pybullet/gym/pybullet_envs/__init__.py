@@ -227,7 +227,29 @@ register(id='HumanoidFlagrunHarderBulletEnv-v0',
 #	)
 
 # dosssman: registering free locomotions environments
+register(id='Walker2DFreeBulletEnv-v0',
+         entry_point='pybullet_envs.gym_free_locomotion_envs:Walker2DFreeBulletEnv',
+         max_episode_steps=1000,
+         reward_threshold=2500.0)
 
+register(id='HalfCheetahFreeBulletEnv-v0',
+         entry_point='pybullet_envs.gym_free_locomotion_envs:HalfCheetahFreeBulletEnv',
+         max_episode_steps=1000,
+         reward_threshold=3000.0)
+
+register(id='AntFreeBulletEnv-v0',
+         entry_point='pybullet_envs.gym_free_locomotion_envs:AntFreeBulletEnv',
+         max_episode_steps=1000,
+         reward_threshold=2500.0)
+
+register(id='HopperFreeBulletEnv-v0',
+         entry_point='pybullet_envs.gym_free_locomotion_envs:HopperFreeBulletEnv',
+         max_episode_steps=1000,
+         reward_threshold=2500.0)
+
+register(id='HumanoidFreeBulletEnv-v0',
+         entry_point='pybullet_envs.gym_free_locomotion_envs:HumanoidFreeBulletEnv',
+         max_episode_steps=1000)
 
 def getList():
   btenvs = ['- ' + spec.id for spec in gym.envs.registry.all() if spec.id.find('Bullet') >= 0]
