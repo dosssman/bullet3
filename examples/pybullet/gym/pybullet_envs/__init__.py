@@ -226,6 +226,8 @@ register(id='HumanoidFlagrunHarderBulletEnv-v0',
 #	max_episode_steps=1000
 #	)
 
+# dosssman: registering free locomotions environments
+
 
 def getList():
   btenvs = ['- ' + spec.id for spec in gym.envs.registry.all() if spec.id.find('Bullet') >= 0]
