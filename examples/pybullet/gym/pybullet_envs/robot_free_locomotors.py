@@ -58,12 +58,14 @@ class WalkerFreeBase(MJCFBasedRobot):
                                         self.walk_target_x - self.body_xyz[0])
     # TODO: Consider whether or not inlcude the distance in z plane
     # Measure the distance between previous location and the current one
-    print( "# DEBUG: Old body xyz before update:", self.old_body_xyz)
+    # TODO: Remove debug lines
+    # print( "# DEBUG: Old body xyz before update:", self.old_body_xyz)
     self.walk_target_dist = np.linalg.norm(
         [self.old_body_xyz[1] - self.body_xyz[1], self.old_body_xyz[0] - self.body_xyz[0]])
     # Once we have computed the distance, we update the old body coordinates
     self.old_body_xyz = list(deepcopy(self.body_xyz))
-    print( "# DEBUG: Old body xyz after update:", self.old_body_xyz)
+    # TODO: Remove debug lines
+    # print( "# DEBUG: Old body xyz after update:", self.old_body_xyz)
     # Note: original version: distance from the objective
     # self.walk_target_dist = np.linalg.norm(
     #     [self.walk_target_y - self.body_xyz[1], self.walk_target_x - self.body_xyz[0]])
